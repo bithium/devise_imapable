@@ -6,7 +6,7 @@ require 'devise_imapable/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'devise_imapable'
-  spec.version       = DeviseImapable::VERSION
+  spec.version       = Devise::Imapable::VERSION
   spec.authors       = ['Filipe Alves']
   spec.email         = ['filipe.alves@bithium.com']
 

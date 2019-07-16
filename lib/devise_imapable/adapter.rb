@@ -8,6 +8,7 @@ module Devise
     module Adapter
 
       def self.valid_credentials?(username, password)
+        return false unless username.present? && password.present?
         return false unless ::Devise.imap_server && valid_domain?(username)
 
         imap = Net::IMAP.new(::Devise.imap_server)

@@ -76,6 +76,18 @@ RSpec.describe Devise::Imap::Adapter do
       end
     end
 
+    context 'when the username is not present' do
+      it 'returns false' do
+        expect(described_class.valid_credentials?(nil, password)).to eq(false)
+      end
+    end
+
+    context 'when the password is not present' do
+      it 'returns false' do
+        expect(described_class.valid_credentials?(username, nil)).to eq(false)
+      end
+    end
+
     # rubocop:disable RSpec/MessageChain
     context 'when the credentials are invalid' do
       before do

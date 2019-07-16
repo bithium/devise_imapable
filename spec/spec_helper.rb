@@ -45,4 +45,16 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.around do |example|
+    server = Devise.imap_server
+    domain = Devise.imap_email_domain
+    attr   = Devise.imap_email_attribute
+
+    example.run
+
+    Devise.imap_server          = server
+    Devise.imap_email_domain    = domain
+    Devise.imap_email_attribute = attr
+  end
 end

@@ -35,12 +35,15 @@ Add the the `:imap_authenticatable` strategy to your user model as shown below.
 * The IMAP server address to authenticate with:
 
   ```ruby
-  Devise.imap_email_domain = 'example.com'
+  Devise.imap_server = 'mail.example.com'
   ```
 
 * The domain name that *MUST* be present in the username to allow
   authentication using the defined IMAP server
 
+  ```ruby
+  Devise.imap_email_domain = 'example.com'
+  ```
 
 * The attribute in the User model that contains the username to use to
   authenticate on the IMAP server.
@@ -66,4 +69,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/bithiu
 
 MIT License. Copyright 2019 [Bithium](https://www.bithium.com)
 
-You are not granted rights or licenses to the trademarks of [Bithium](https://www.bithium.com), including without limitation the Bithium name or logo.
+You are not granted rights or licenses to the trademarks of [Bithium](https://www.bithium.com), including without limitation Bithium's name and logo.

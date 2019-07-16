@@ -61,3 +61,9 @@ This gem was inspirred by the work done by [Josh Kalderimis](https://github.com/
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/bithium/devise_imapable.
+
+## License
+
+MIT License. Copyright 2019 [Bithium](https://www.bithium.com)
+
+You are not granted rights or licenses to the trademarks of [Bithium](https://www.bithium.com), including without limitation the Bithium name or logo.

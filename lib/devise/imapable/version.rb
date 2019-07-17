@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,26 +18,11 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
-
-require 'devise_imapable/strategy.rb'
 
 module Devise
-  module Models
-    # :nodoc:
-    module ImapAuthenticatable
+  module Imapable
 
-      extend ActiveSupport::Concern
+    VERSION = '0.3.0'
 
-      def after_imap_authentication; end
-
-      class_methods do
-        def find_for_imap_authentication(conditions)
-          find_for_authentication(conditions)
-        end
-      end
-
-    end
   end
 end

@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,8 +18,6 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
 
 require 'spec_helper'
 
@@ -41,43 +40,6 @@ RSpec.describe Devise::Imap::Adapter do
       it 'returns false' do
         ::Devise.imap_server = nil
         expect(described_class.valid_credentials?(username, password)).to eq(false)
-      end
-    end
-
-    context 'when the IMAP domain is not set' do
-      before do
-        allow(imap_conn).to receive(:authenticate)
-      end
-
-      it 'allows emails for any domain' do
-        ::Devise.imap_email_domain = nil
-
-        described_class.valid_credentials?(username, password)
-
-        expect(imap_conn).to have_received(:authenticate)
-      end
-    end
-
-    context 'when the IMAP domain is set' do
-      before do
-        allow(imap_conn).to receive(:authenticate)
-      end
-
-      it 'allows emails for the domain' do
-        ::Devise.imap_email_domain = domain
-
-        described_class.valid_credentials?(username, password)
-
-        expect(imap_conn).to have_received(:authenticate)
-      end
-
-      it 'does not allow emails from other domains', aggregate_failures: true do
-        ::Devise.imap_email_domain = domain
-
-        username = Faker::Internet.free_email
-        expect(described_class.valid_credentials?(username, password)).to eq(false)
-
-        expect(imap_conn).not_to have_received(:authenticate)
       end
     end
 

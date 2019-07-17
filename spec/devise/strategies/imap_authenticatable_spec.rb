@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,13 +18,11 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
 
 require 'spec_helper'
 require 'devise_setup'
 
-RSpec.describe Devise::Strategies::ImapAutheticable do
+RSpec.describe Devise::Strategies::ImapAuthenticatable do
   subject(:strategy) { described_class.new(args, :user) }
 
   let!(:email)    { Faker::Internet.safe_email }
@@ -33,6 +32,27 @@ RSpec.describe Devise::Strategies::ImapAutheticable do
   let!(:args)     { env_with_params('/users/sign_in', params, env) }
 
   let(:user)      { User.new(email: email) }
+
+  describe '#valid?' do
+    context 'when `Devise.imap_email_domain` is not set' do
+      it 'returns false' do
+        Devise.imap_email_domain = nil
+        expect(strategy.valid?).to eq(false)
+      end
+    end
+
+    context 'when `Devise.imap_email_domain` is set' do
+      it 'returns true if the attribute matches' do
+        Devise.imap_email_domain = email.split('@').last
+        expect(strategy.valid?).to eq(true)
+      end
+
+      it 'returns false if the attribute does not match' do
+        Devise.imap_email_domain = 'gmail.com'
+        expect(strategy.valid?).to eq(false)
+      end
+    end
+  end
 
   describe '#authenticate!' do
     before do

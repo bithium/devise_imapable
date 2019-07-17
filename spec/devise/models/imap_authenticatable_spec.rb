@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,8 +18,6 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
 
 require 'spec_helper'
 require 'devise_setup'
@@ -41,6 +40,18 @@ RSpec.describe Devise::Models::ImapAuthenticatable do
   describe '#after_imap_authentication' do
     it 'is present on the User model' do
       expect(User.new).to respond_to(:after_imap_authentication)
+    end
+  end
+
+  describe '#imap_password' do
+    it 'is present on the User model' do
+      expect(User.new).to respond_to(:imap_password)
+    end
+  end
+
+  describe '#imap_password=' do
+    it 'is present on the User model' do
+      expect(User.new).to respond_to('imap_password='.to_sym)
     end
   end
 end

@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,12 +18,13 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
 
 require 'devise'
-require 'devise_imapable/version'
-require 'devise_imapable/strategy'
+
+require 'devise/models/imap_authenticatable'
+require 'devise/strategies/imap_authenticatable'
+
+require 'devise/imapable/version'
 
 # rubocop:disable Style/ClassVars
 # :nodoc:
@@ -45,6 +47,6 @@ end
 
 # Add +:imap_authenticable+ strategy to defaults.
 Devise.add_module(:imap_authenticatable,
-                  strategy:   true,
                   controller: :sessions,
-                  model:      'devise_imapable/model')
+                  strategy:   true,
+                  model:      'devise/models/imap_authenticatable')

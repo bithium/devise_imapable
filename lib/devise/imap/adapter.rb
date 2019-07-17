@@ -1,4 +1,5 @@
-#
+# frozen_string_literal: true
+
 # Copyright (C) 2019 Bithium S.A.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -17,40 +18,27 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-# frozen_string_literal: true
 
-require 'devise_imapable/adapter'
-require 'devise/strategies/authenticatable'
+require 'net/imap'
 
 module Devise
-  module Strategies
-    # Strategy for signing in a user based on his email and password using imap.
-    # Redirects to sign_in page if it's not authenticated
-    class ImapAutheticable < Authenticatable
+  module Imap
+    # Simple adapter to authenticate using an IMAP server
+    module Adapter
 
-      # Authenticate a user based on email and password params, returning to warden
-      # success and the authenticated user if everything is okay. Otherwise redirect
-      # to sign in page.
-      #
-      # rubocop:disable Style/SignalException
-      def authenticate!
-        resource = mapping.to.find_for_imap_authentication(authentication_hash)
+      def self.valid_credentials?(username, password)
+        return false unless username.present? && password.present? && ::Devise.imap_server
 
-        return fail!(:invalid) unless resource
+        imap = Net::IMAP.new(::Devise.imap_server)
+        imap.authenticate('cram-md5', username, password)
 
-        email = resource.send(::Devise.imap_email_attribute)
-
-        return fail(:invalid) unless Devise::Imap::Adapter.valid_credentials?(email, password)
-
-        remember_me(resource)
-        resource.after_imap_authentication
-        success!(resource)
+        true
+      rescue Net::IMAP::ResponseError
+        false
+      ensure
+        imap&.disconnect
       end
-      # rubocop:enable Style/SignalException
 
     end
   end
 end
-
-Warden::Strategies.add(:imap_authenticatable, Devise::Strategies::ImapAutheticable)

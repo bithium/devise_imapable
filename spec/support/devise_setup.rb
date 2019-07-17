@@ -74,24 +74,7 @@ end
 
 Rails.application.routes.draw do
   devise_for :users
-
-  # get '/' => 'test#index'
 end
-
-# class ApplicationController < ActionController::Base
-# end
-
-# class TestController < ApplicationController
-
-#   include Rails.application.routes.url_helpers
-
-#   before_action :authenticate_user!
-
-#   def index
-#     render plain: 'Home'
-#   end
-
-# end
 
 def env_with_params(path = '/', params = {}, env = {})
   method = params.delete(:method) || 'GET'

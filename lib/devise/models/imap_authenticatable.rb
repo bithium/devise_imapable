@@ -27,6 +27,10 @@ module Devise
 
       extend ActiveSupport::Concern
 
+      included do
+        attr_accessor :imap_password
+      end
+
       def after_imap_authentication; end
 
       class_methods do

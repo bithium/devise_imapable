@@ -47,6 +47,8 @@ module Devise
 
         return fail(:invalid) unless Devise::Imap::Adapter.valid_credentials?(email, password)
 
+        resource.imap_password = password
+
         remember_me(resource)
         resource.after_imap_authentication
         success!(resource)

@@ -43,4 +43,16 @@ RSpec.describe Devise::Models::ImapAuthenticatable do
       expect(User.new).to respond_to(:after_imap_authentication)
     end
   end
+
+  describe '#imap_password' do
+    it 'is present on the User model' do
+      expect(User.new).to respond_to(:imap_password)
+    end
+  end
+
+  describe '#imap_password=' do
+    it 'is present on the User model' do
+      expect(User.new).to respond_to('imap_password='.to_sym)
+    end
+  end
 end

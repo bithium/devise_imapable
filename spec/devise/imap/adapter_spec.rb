@@ -44,43 +44,6 @@ RSpec.describe Devise::Imap::Adapter do
       end
     end
 
-    context 'when the IMAP domain is not set' do
-      before do
-        allow(imap_conn).to receive(:authenticate)
-      end
-
-      it 'allows emails for any domain' do
-        ::Devise.imap_email_domain = nil
-
-        described_class.valid_credentials?(username, password)
-
-        expect(imap_conn).to have_received(:authenticate)
-      end
-    end
-
-    context 'when the IMAP domain is set' do
-      before do
-        allow(imap_conn).to receive(:authenticate)
-      end
-
-      it 'allows emails for the domain' do
-        ::Devise.imap_email_domain = domain
-
-        described_class.valid_credentials?(username, password)
-
-        expect(imap_conn).to have_received(:authenticate)
-      end
-
-      it 'does not allow emails from other domains', aggregate_failures: true do
-        ::Devise.imap_email_domain = domain
-
-        username = Faker::Internet.free_email
-        expect(described_class.valid_credentials?(username, password)).to eq(false)
-
-        expect(imap_conn).not_to have_received(:authenticate)
-      end
-    end
-
     context 'when the credentials are valid' do
       before do
         allow(imap_conn).to receive(:authenticate)

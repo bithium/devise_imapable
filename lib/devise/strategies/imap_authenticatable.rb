@@ -29,6 +29,9 @@ module Devise
     # Redirects to sign_in page if it's not authenticated
     class ImapAuthenticatable < Authenticatable
 
+      def valid?
+        super && valid_domain?
+      end
 
       # Authenticate a user based on email and password params, returning to warden
       # success and the authenticated user if everything is okay. Otherwise redirect
@@ -49,6 +52,15 @@ module Devise
         success!(resource)
       end
       # rubocop:enable Style/SignalException
+
+      protected
+
+      def valid_domain?
+        domain = ::Devise.imap_email_domain
+        return false unless domain
+
+        Devise.authentication_keys.any? { |k| authentication_hash[k].ends_with?(domain) }
+      end
 
     end
   end

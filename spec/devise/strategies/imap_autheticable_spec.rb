@@ -34,6 +34,27 @@ RSpec.describe Devise::Strategies::ImapAuthenticatable do
 
   let(:user)      { User.new(email: email) }
 
+  describe '#valid?' do
+    context 'when `Devise.imap_email_domain` is not set' do
+      it 'returns false' do
+        Devise.imap_email_domain = nil
+        expect(strategy.valid?).to eq(false)
+      end
+    end
+
+    context 'when `Devise.imap_email_domain` is set' do
+      it 'returns true if the attribute matches' do
+        Devise.imap_email_domain = email.split('@').last
+        expect(strategy.valid?).to eq(true)
+      end
+
+      it 'returns false if the attribute does not match' do
+        Devise.imap_email_domain = 'gmail.com'
+        expect(strategy.valid?).to eq(false)
+      end
+    end
+  end
+
   describe '#authenticate!' do
     before do
       strategy.valid?

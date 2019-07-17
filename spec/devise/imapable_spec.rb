@@ -30,6 +30,6 @@ RSpec.describe Devise::Imapable do
 
   it 'adds the `imap_authenticatable` strategy to Warden::Strategies' do
     expect(Warden::Strategies[:imap_authenticatable])
-      .to eq(Devise::Strategies::ImapAutheticable)
+      .to eq(Devise::Strategies::ImapAuthenticatable)
   end
 end

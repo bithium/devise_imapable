@@ -20,14 +20,15 @@
 #
 # frozen_string_literal: true
 
-require 'devise_imapable/adapter'
+require 'devise/imap/adapter'
 require 'devise/strategies/authenticatable'
 
 module Devise
   module Strategies
     # Strategy for signing in a user based on his email and password using imap.
     # Redirects to sign_in page if it's not authenticated
-    class ImapAutheticable < Authenticatable
+    class ImapAuthenticatable < Authenticatable
+
 
       # Authenticate a user based on email and password params, returning to warden
       # success and the authenticated user if everything is okay. Otherwise redirect
@@ -53,4 +54,4 @@ module Devise
   end
 end
 
-Warden::Strategies.add(:imap_authenticatable, Devise::Strategies::ImapAutheticable)
+Warden::Strategies.add(:imap_authenticatable, Devise::Strategies::ImapAuthenticatable)

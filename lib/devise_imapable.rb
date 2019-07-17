@@ -21,8 +21,11 @@
 # frozen_string_literal: true
 
 require 'devise'
-require 'devise_imapable/version'
-require 'devise_imapable/strategy'
+
+require 'devise/models/imap_authenticatable'
+require 'devise/strategies/imap_authenticatable'
+
+require 'devise/imapable/version'
 
 # rubocop:disable Style/ClassVars
 # :nodoc:
@@ -45,6 +48,6 @@ end
 
 # Add +:imap_authenticable+ strategy to defaults.
 Devise.add_module(:imap_authenticatable,
-                  strategy:   true,
                   controller: :sessions,
-                  model:      'devise_imapable/model')
+                  strategy:   true,
+                  model:      'devise/models/imap_authenticatable')

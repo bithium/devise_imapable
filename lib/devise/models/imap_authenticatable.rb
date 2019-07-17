@@ -20,8 +20,6 @@
 #
 # frozen_string_literal: true
 
-require 'devise_imapable/strategy.rb'
-
 module Devise
   module Models
     # :nodoc:

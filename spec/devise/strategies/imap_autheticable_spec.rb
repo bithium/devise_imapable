@@ -23,7 +23,7 @@
 require 'spec_helper'
 require 'devise_setup'
 
-RSpec.describe Devise::Strategies::ImapAutheticable do
+RSpec.describe Devise::Strategies::ImapAuthenticatable do
   subject(:strategy) { described_class.new(args, :user) }
 
   let!(:email)    { Faker::Internet.safe_email }

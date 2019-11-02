@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'activemodel', '~>5.2.0'
-  spec.add_dependency 'devise', '~> 4.6.0'
+  spec.add_dependency 'devise', '>= 4.6', '< 4.8'
 
   spec.add_development_dependency 'activerecord', '>= 5.2.3'
   spec.add_development_dependency 'bundler', '~> 2.0'
